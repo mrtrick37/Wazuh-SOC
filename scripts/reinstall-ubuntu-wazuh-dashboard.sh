@@ -61,7 +61,7 @@ fi
 sudo systemctl reload nginx
 
 # Run installer script to recreate everything
-SCRIPT_DIR="$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR/.."
 
 if [ ! -f "./scripts/install-ubuntu-wazuh-dashboard.sh" ]; then
