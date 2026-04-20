@@ -37,6 +37,28 @@ done
 
 log() { echo -e "\033[1;34m[INFO]\033[0m $*"; }
 err() { echo -e "\033[1;31m[ERROR]\033[0m $*" >&2; }
+warn() { echo -e "\033[1;33m[WARN]\033[0m $*"; }
+
+# Detect existing installation
+EXISTING_INSTALL=false
+EXISTING_MARKERS=()
+[ -f "/etc/nginx/sites-available/$SITE_NAME" ] && { EXISTING_INSTALL=true; EXISTING_MARKERS+=("nginx site config: /etc/nginx/sites-available/$SITE_NAME"); }
+[ -d "$WEB_ROOT" ] && { EXISTING_INSTALL=true; EXISTING_MARKERS+=("web root: $WEB_ROOT"); }
+systemctl list-unit-files wazuh-soc-backend.service &>/dev/null && systemctl list-unit-files wazuh-soc-backend.service | grep -q wazuh-soc-backend && { EXISTING_INSTALL=true; EXISTING_MARKERS+=("systemd service: wazuh-soc-backend.service"); }
+
+if [ "$EXISTING_INSTALL" = true ]; then
+  warn "An existing installation was detected:"
+  for marker in "${EXISTING_MARKERS[@]}"; do
+    warn "  - $marker"
+  done
+  echo ""
+  read -r -p "An existing install was found. Overwrite it? [y/N] " CONFIRM
+  case "$CONFIRM" in
+    [yY][eE][sS]|[yY]) log "Proceeding with installation over existing install..." ;;
+    *) log "Aborting."; exit 0 ;;
+  esac
+  echo ""
+fi
 
 # 1. Install dependencies
 sudo apt-get update
