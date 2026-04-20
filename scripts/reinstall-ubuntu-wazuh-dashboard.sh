@@ -5,8 +5,8 @@ set -euo pipefail
 NGINX_SITES_AVAILABLE="/etc/nginx/sites-available"
 NGINX_SITES_ENABLED="/etc/nginx/sites-enabled"
 
-# Find the first enabled site that listens on 8443 (or any port)
-SITE_FILE=$(grep -lR 'listen[[:space:]]\+[0-9]\+.*ssl;' "$NGINX_SITES_AVAILABLE" 2>/dev/null | head -n1)
+# Find the first enabled site that listens on 8443 (or any port), ignoring .bak files
+SITE_FILE=$(find "$NGINX_SITES_AVAILABLE" -type f ! -name '*.bak*' -exec grep -l 'listen[[:space:]]\+[0-9]\+.*ssl;' {} + | head -n1)
 if [ -z "$SITE_FILE" ]; then
   echo "[ERROR] Could not auto-detect nginx site file. Please specify manually."
   exit 1
