@@ -18,23 +18,23 @@ For deployment and backend operations, use the backend guide as the single sourc
 - scripts/release-ubuntu-wazuh-dashboard.sh
 - Auto-selects install vs update, then runs health checks.
 Set this first to the raw script URL in your repository:
-	export INSTALLER_URL="https://raw.githubusercontent.com/mrtrick37/wazuh-soc/main/scripts/install-ubuntu-wazuh-soc.sh"
+	export INSTALLER_URL="https://raw.githubusercontent.com/mrtrick37/Wazuh-SOC/main/scripts/install-ubuntu-wazuh-dashboard.sh"
 Curl (auto-clones source to $HOME/wazuh-soc if needed):
 
-	curl -fsSL "$INSTALLER_URL" -o /tmp/install-ubuntu-wazuh-soc.sh && bash /tmp/install-ubuntu-wazuh-soc.sh
+	curl -fsSL "$INSTALLER_URL" -o /tmp/install-ubuntu-wazuh-dashboard.sh && bash /tmp/install-ubuntu-wazuh-dashboard.sh
 
 Wget (auto-clones source to $HOME/wazuh-soc if needed):
 
-	wget -qO /tmp/install-ubuntu-wazuh-soc.sh "$INSTALLER_URL" && bash /tmp/install-ubuntu-wazuh-soc.sh
+	wget -qO /tmp/install-ubuntu-wazuh-dashboard.sh "$INSTALLER_URL" && bash /tmp/install-ubuntu-wazuh-dashboard.sh
 
 Override clone target/repo ref explicitly:
 
-	curl -fsSL "$INSTALLER_URL" -o /tmp/install-ubuntu-wazuh-soc.sh && bash /tmp/install-ubuntu-wazuh-soc.sh --clone-dir "$HOME/wazuh-soc" --repo-ref main
+	curl -fsSL "$INSTALLER_URL" -o /tmp/install-ubuntu-wazuh-dashboard.sh && bash /tmp/install-ubuntu-wazuh-dashboard.sh --clone-dir "$HOME/wazuh-soc" --repo-ref main
 
 Recommended for repeatable deployments (pin a commit):
 
-	export INSTALLER_URL="https://raw.githubusercontent.com/mrtrick37/wazuh-soc/<commit-sha>/scripts/install-ubuntu-wazuh-soc.sh"
-	curl -fsSL "$INSTALLER_URL" -o /tmp/install-ubuntu-wazuh-soc.sh && bash /tmp/install-ubuntu-wazuh-soc.sh --repo-ref <commit-sha> --non-interactive
+	export INSTALLER_URL="https://raw.githubusercontent.com/mrtrick37/Wazuh-SOC/<commit-sha>/scripts/install-ubuntu-wazuh-dashboard.sh"
+	curl -fsSL "$INSTALLER_URL" -o /tmp/install-ubuntu-wazuh-dashboard.sh && bash /tmp/install-ubuntu-wazuh-dashboard.sh --repo-ref <commit-sha> --non-interactive
 # Wazuh SOC Dashboard
 
 This project is a QRadar-style SOC interface built on top of Wazuh and OpenSearch.
@@ -133,7 +133,7 @@ If you are already on the Wazuh Ubuntu server, you can pull the installer script
 
 Set this first to the raw script URL in your repository:
 
-	export INSTALLER_URL="https://raw.githubusercontent.com/mrtrick37/wazuh-testing/main/scripts/install-ubuntu-wazuh-dashboard.sh"
+	export INSTALLER_URL="https://raw.githubusercontent.com/mrtrick37/Wazuh-SOC/main/scripts/install-ubuntu-wazuh-dashboard.sh"
 
 Curl (auto-clones source to $HOME/wazuh-testing if needed):
 
@@ -145,11 +145,11 @@ Wget (auto-clones source to $HOME/wazuh-testing if needed):
 
 Override clone target/repo ref explicitly:
 
-	curl -fsSL "$INSTALLER_URL" -o /tmp/install-ubuntu-wazuh-dashboard.sh && bash /tmp/install-ubuntu-wazuh-dashboard.sh --clone-dir "$HOME/wazuh-testing" --repo-ref main
+	curl -fsSL "$INSTALLER_URL" -o /tmp/install-ubuntu-wazuh-dashboard.sh && bash /tmp/install-ubuntu-wazuh-dashboard.sh --clone-dir "$HOME/wazuh-soc" --repo-ref main
 
 Recommended for repeatable deployments (pin a commit):
 
-	export INSTALLER_URL="https://raw.githubusercontent.com/mrtrick37/wazuh-testing/<commit-sha>/scripts/install-ubuntu-wazuh-dashboard.sh"
+	export INSTALLER_URL="https://raw.githubusercontent.com/mrtrick37/Wazuh-SOC/<commit-sha>/scripts/install-ubuntu-wazuh-dashboard.sh"
 	curl -fsSL "$INSTALLER_URL" -o /tmp/install-ubuntu-wazuh-dashboard.sh && bash /tmp/install-ubuntu-wazuh-dashboard.sh --repo-ref <commit-sha> --non-interactive
 
 ## Tech Profile
