@@ -86,12 +86,7 @@ sudo mkdir -p "$WEB_ROOT"
 sudo rsync -av --delete "$PROJECT_DIR/dist/" "$WEB_ROOT/"
 sudo chown -R www-data:www-data "$WEB_ROOT"
 
-# 4. Backend setup
-log "Running backend setup script..."
-chmod +x "$BACKEND_SETUP_SCRIPT"
-"$BACKEND_SETUP_SCRIPT" --site-name "$SITE_NAME" --web-root "$WEB_ROOT" --non-interactive
-
-# 5. Nginx site config
+# 4. Nginx site config
 NGINX_SITE_FILE="/etc/nginx/sites-available/$SITE_NAME"
 if [ ! -f "$NGINX_SITE_FILE" ]; then
   log "Creating nginx site config at $NGINX_SITE_FILE ..."
@@ -106,7 +101,7 @@ server {
     ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
 
     location / {
-        try_files $uri $uri/ /index.html;
+        try_files \$uri \$uri/ /index.html;
     }
 
     include $PROJECT_DIR/backend/nginx.conf.snippet;
@@ -117,6 +112,11 @@ fi
 if [ ! -e "/etc/nginx/sites-enabled/$SITE_NAME" ]; then
   sudo ln -s "$NGINX_SITE_FILE" "/etc/nginx/sites-enabled/$SITE_NAME"
 fi
+
+# 5. Backend setup
+log "Running backend setup script..."
+chmod +x "$BACKEND_SETUP_SCRIPT"
+"$BACKEND_SETUP_SCRIPT" --site-name "$SITE_NAME" --web-root "$WEB_ROOT" --non-interactive
 
 log "Testing nginx config..."
 sudo nginx -t
