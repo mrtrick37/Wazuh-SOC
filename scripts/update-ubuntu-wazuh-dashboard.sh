@@ -22,8 +22,8 @@ Usage:
 
 Options:
   --project-dir <path>   Project directory containing package.json and dist/. (default: script parent)
-  --site-name <name>     Nginx site filename (default: wazuh-soc-dashboard).
-  --web-root <path>      Static deployment path (default: /var/www/wazuh-soc-dashboard).
+  --site-name <name>     Nginx site filename (default: wazuh-soc).
+  --web-root <path>      Static deployment path (default: /var/www/wazuh-soc).
   --skip-git-pull        Skip git fetch/pull before build/deploy.
   --skip-build           Skip npm install + npm run build and deploy existing dist/.
   --non-interactive      Do not prompt for confirmation.
