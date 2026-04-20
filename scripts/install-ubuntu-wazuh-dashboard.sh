@@ -39,9 +39,18 @@ log() { echo -e "\033[1;34m[INFO]\033[0m $*"; }
 err() { echo -e "\033[1;31m[ERROR]\033[0m $*" >&2; }
 
 # 1. Install dependencies
-log "Installing Node.js, npm, nginx, and other dependencies..."
 sudo apt-get update
-sudo apt-get install -y nodejs npm nginx rsync
+log "Installing Node.js, nginx, and other dependencies..."
+sudo apt-get update
+sudo apt-get install -y nodejs nginx rsync
+
+# Ensure npm is available (Node.js 22.x bundles npm, but check)
+if ! command -v npm >/dev/null 2>&1; then
+  log "npm not found, installing npm globally via Node.js..."
+  sudo npm install -g npm
+else
+  log "npm is already installed: $(npm -v)"
+fi
 
 # 2. Build frontend
 log "Building frontend..."

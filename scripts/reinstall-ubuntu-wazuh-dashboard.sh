@@ -39,11 +39,29 @@ fi
 # Remove web root (optional, comment out if you want to keep existing files)
 sudo rm -rf "$WEB_ROOT"
 
+sudo systemctl reload nginx
+
+
+
+
+# Install dependencies (Node.js, nginx, rsync)
+echo "[INFO] Installing Node.js, nginx, and other dependencies..."
+sudo apt-get update
+sudo apt-get install -y nodejs nginx rsync
+
+# Ensure npm is available (Node.js 22.x bundles npm, but check)
+if ! command -v npm >/dev/null 2>&1; then
+  echo "[INFO] npm not found, installing npm globally via Node.js..."
+  sudo npm install -g npm
+else
+  echo "[INFO] npm is already installed: $(npm -v)"
+fi
+
 # Reload nginx to apply removal
 sudo systemctl reload nginx
 
 # Run installer script to recreate everything
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)"
 cd "$SCRIPT_DIR/.."
 
 if [ ! -f "./scripts/install-ubuntu-wazuh-dashboard.sh" ]; then
