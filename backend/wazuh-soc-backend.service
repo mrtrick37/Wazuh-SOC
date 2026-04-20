@@ -1,0 +1,21 @@
+[Unit]
+Description=Wazuh SOC Backend
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/home/phendrick/git/Wazuh-SOC/backend
+ExecStart=/usr/bin/node /home/phendrick/git/Wazuh-SOC/backend/dist/server.js
+Restart=on-failure
+RestartSec=10
+Environment="NODE_ENV=production"
+Environment="PORT=3001"
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=wazuh-soc-backend
+
+[Install]
+WantedBy=multi-user.target
